@@ -1,5 +1,4 @@
-console.log('hello world');
-/*
-* this is a test pr again,
-* now test for template
- */
+import { HTTPServer } from './app/server/server';
+
+const app = new HTTPServer(8080);
+app.connection();
