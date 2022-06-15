@@ -35,7 +35,6 @@ export class HTTPServer {
     const server = this.app.listen(this.port, () => {
       console.log(`Server listening on PORT: ${this.port}`);
     });
-
     process.on('unhandledRejection', (error: Error) => {
       console.error(error.message);
       server.close(() => {
