@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-import supertest from 'supertest';
+import request from 'supertest';
 import { HTTPServer } from '../../../server/server';
 import routes from '../../routes';
+import assert from 'assert';
 
 const server = new HTTPServer(8080, routes);
-const { app } = server;
 
 describe('port', () => {
   describe('while running, the port, ', () => {
@@ -17,9 +17,18 @@ describe('port', () => {
 
 describe('healthCheck', () => {
   describe('given route is successful', () => {
-    it('should return a status code of 200', async () => {
-      const { statusCode } = await supertest(app).get('/v1/healthCheck');
-      expect(statusCode).toBe(200);
+    test('should return a status code of 200',function() {
+      request('http://localhost:8080')
+          .get('/v1/healthCheck')
+            .expect(200)
+            .expect('Content-Type', 'application/json')
+            .expect(function (res) {
+              assert(res.body.hasOwnProperty('status'));
+              assert(res.body.hasOwnProperty('message'));
+            })
+          .end(function (err, res){
+            if(err) throw  err;
+          })
     });
   });
 });
