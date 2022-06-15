@@ -10,27 +10,26 @@ expressApp.use(urlencoded({ extended: true }));
 expressApp.use(json());
 
 export class HTTPServer {
-  close() {
-      throw new Error('Method not implemented.');
-  }
-  private app = expressApp;
-
   private readonly _port: number;
 
   private readonly _router: Router;
-  
+
+  public app = expressApp;
+
   constructor(port: number, router: Router) {
     this._port = port;
     this._router = router;
     this.useRouter();
   }
+
   public get port(): number {
     return this._port;
   }
-  private useRouter(){
+
+  private useRouter() {
     this.app.use(this._router);
   }
- 
+
   public connection() {
     const server = this.app.listen(this.port, () => {
       console.log(`Server listening on PORT: ${this.port}`);
