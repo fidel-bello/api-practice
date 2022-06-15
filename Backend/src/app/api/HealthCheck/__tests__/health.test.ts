@@ -1,8 +1,9 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 import request from 'supertest';
+import assert from 'assert';
 import { HTTPServer } from '../../../server/server';
 import routes from '../../routes';
-import assert from 'assert';
 
 const server = new HTTPServer(8080, routes);
 
@@ -17,18 +18,18 @@ describe('port', () => {
 
 describe('healthCheck', () => {
   describe('given route is successful', () => {
-    test('should return a status code of 200',function() {
+    test('should return a status code of 200', () => {
       request('http://localhost:8080')
-          .get('/v1/healthCheck')
-            .expect(200)
-            .expect('Content-Type', 'application/json')
-            .expect(function (res) {
-              assert(res.body.hasOwnProperty('status'));
-              assert(res.body.hasOwnProperty('message'));
-            })
-          .end(function (err, res){
-            if(err) throw  err;
-          })
+        .get('/v1/healthCheck')
+        .expect(200)
+        .expect('Content-Type', 'application/json')
+        .expect((res) => {
+          assert(res.body.hasOwnProperty('status'));
+          assert(res.body.hasOwnProperty('message'));
+        })
+        .end((err) => {
+          if (err) throw err;
+        });
     });
   });
 });
