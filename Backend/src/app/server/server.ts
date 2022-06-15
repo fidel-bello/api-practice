@@ -10,12 +10,17 @@ expressApp.use(urlencoded({ extended: true }));
 expressApp.use(json());
 
 export class HTTPServer {
+  
   private readonly _port: number;
 
   private readonly _router: Router;
-
+  
+  private useRouter() {
+    this.app.use(this._router);
+  }
+  
   public app = expressApp;
-
+  
   constructor(port: number, router: Router) {
     this._port = port;
     this._router = router;
@@ -25,11 +30,7 @@ export class HTTPServer {
   public get port(): number {
     return this._port;
   }
-
-  private useRouter() {
-    this.app.use(this._router);
-  }
-
+  
   public connection() {
     const server = this.app.listen(this.port, () => {
       console.log(`Server listening on PORT: ${this.port}`);
