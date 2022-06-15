@@ -1,27 +1,46 @@
 /* eslint-disable no-console */
-import { createServer, ServerResponse, IncomingMessage } from 'http';
+import express, {
+  urlencoded, json, Router
+} from 'express';
+import cors from 'cors';
+
+export const expressApp = express();
+expressApp.use(cors());
+expressApp.use(urlencoded({ extended: true }));
+expressApp.use(json());
 
 export class HTTPServer {
-  private _port: number;
-
-  constructor(port: number) {
-    this._port = port;
+  close() {
+      throw new Error('Method not implemented.');
   }
+  private app = expressApp;
 
-  public set port(port: number) {
+  private readonly _port: number;
+
+  private readonly _router: Router;
+  
+  constructor(port: number, router: Router) {
     this._port = port;
+    this._router = router;
+    this.useRouter();
   }
-
   public get port(): number {
     return this._port;
   }
-
+  private useRouter(){
+    this.app.use(this._router);
+  }
+ 
   public connection() {
-    const server = createServer((req: IncomingMessage, res: ServerResponse) => {
-      res.end('successful');
+    const server = this.app.listen(this.port, () => {
+      console.log(`Server listening on PORT: ${this.port}`);
     });
-    server.listen(this.port, () => {
-      console.log(`Server listening on port ${this.port}`);
+
+    process.on('unhandledRejection', (error: Error) => {
+      console.error(error.message);
+      server.close(() => {
+        process.exit(1);
+      });
     });
   }
 }
