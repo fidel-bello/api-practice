@@ -10,6 +10,7 @@ expressApp.use(urlencoded({ extended: true }));
 expressApp.use(json());
 
 export class HTTPServer {
+  
   private readonly _port: number;
 
   private readonly _router: Router;
