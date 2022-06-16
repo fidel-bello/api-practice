@@ -1,7 +1,7 @@
 # API Practice
 
 ## Description
-* This is a repo to practice typescript classes and also API 
+* This is a repo to practice typescript classes and also REST API 
 
 ## Dependencies
 * mongoose
