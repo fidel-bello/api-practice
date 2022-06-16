@@ -4,8 +4,9 @@ import express, {
 } from 'express';
 import cors from 'cors';
 import MongoConnection from '../api/database/connection';
+import config from 'config';
 
-const mongoConnection = new MongoConnection('Enter String Here');
+const mongoConnection = new MongoConnection(config.get('URL'));
 
 export const expressApp = express();
 expressApp.use(cors());

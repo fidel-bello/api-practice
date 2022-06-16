@@ -9,34 +9,44 @@ interface IOnConnectedCallBack {
 }
 
 export default class MongoConnection {
-  private readonly mongoUri: string;
+  
+  private URL: string;
 
   private _onConnectedCallBack!: IOnConnectedCallBack;
 
   private isConnectedBefore: boolean = false;
 
-  private startConnection = () => {
+  private startConnection = async () => {
     logger.log({
       level: 'info',
-      message: `Connecting to Mongo at ${this.mongoUri}`
+      message: `Connecting to Mongo at ${this.URL}`
     });
-    mongoose.connect(this.mongoUri).catch(() => {});
+    await  mongoose.connect(this.URL).catch((error) => {
+      console.log(error);
+      process.exit(1);
+    });
   };
 
   private onConnected = () => {
     logger.log({
       level: 'info',
-      message: `Connected to MongoDB at ${this.mongoUri}`
+      message: `Connected to MongoDB at ${this.URL}`
     });
     this.isConnectedBefore = true;
     this._onConnectedCallBack();
   };
 
-  constructor(mongoUri: string) {
+  constructor(url: string) {
     mongoose.set('debug', true);
-    this.mongoUri = mongoUri;
+    this.URL = url;
   }
-
+  public set url(url: string) {
+    this.URL = url;
+  }
+  public get url(): string {
+    return this.URL;
+  }
+  
   get onConnectedCallBack(): IOnConnectedCallBack {
     return this._onConnectedCallBack;
   }
