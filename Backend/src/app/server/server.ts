@@ -3,8 +3,8 @@ import express, {
   urlencoded, json, Router
 } from 'express';
 import cors from 'cors';
-import MongoConnection from '../api/database/connection';
 import config from 'config';
+import MongoConnection from '../api/database/connection';
 
 const mongoConnection = new MongoConnection(config.get('URL'));
 

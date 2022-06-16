@@ -9,22 +9,18 @@ interface IOnConnectedCallBack {
 }
 
 export default class MongoConnection {
-  
   private URL: string;
 
   private _onConnectedCallBack!: IOnConnectedCallBack;
 
   private isConnectedBefore: boolean = false;
 
-  private startConnection = async () => {
+  private startConnection = () => {
     logger.log({
       level: 'info',
       message: `Connecting to Mongo at ${this.URL}`
     });
-    await  mongoose.connect(this.URL).catch((error) => {
-      console.log(error);
-      process.exit(1);
-    });
+    mongoose.connect(this.URL).catch(() => {});
   };
 
   private onConnected = () => {
@@ -40,13 +36,15 @@ export default class MongoConnection {
     mongoose.set('debug', true);
     this.URL = url;
   }
+
   public set url(url: string) {
     this.URL = url;
   }
+
   public get url(): string {
     return this.URL;
   }
-  
+
   get onConnectedCallBack(): IOnConnectedCallBack {
     return this._onConnectedCallBack;
   }
