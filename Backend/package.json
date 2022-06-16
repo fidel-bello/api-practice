@@ -48,6 +48,10 @@
     "supertest": "^6.2.3",
     "winston": "^3.7.2"
   },
+  "optionalDependencies": {
+    "config": "^3.3.7",
+    "dotenv": "^16.0.1"
+  },
   "keywords": [],
   "author": "Fidel",
   "license": "ISC"
