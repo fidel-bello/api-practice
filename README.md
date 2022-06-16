@@ -12,6 +12,8 @@
 * jest
 * winston
 * eslint
+* config
+* dotenv
 
 ## Installation
 * in the Backend directory, run npm install
