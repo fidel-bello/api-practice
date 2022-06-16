@@ -9,7 +9,7 @@ interface IOnConnectedCallBack {
 }
 
 export default class MongoConnection {
-  private URL: string;
+  private readonly URL: string;
 
   private _onConnectedCallBack!: IOnConnectedCallBack;
 
@@ -35,14 +35,6 @@ export default class MongoConnection {
   constructor(url: string) {
     mongoose.set('debug', true);
     this.URL = url;
-  }
-
-  public set url(url: string) {
-    this.URL = url;
-  }
-
-  public get url(): string {
-    return this.URL;
   }
 
   get onConnectedCallBack(): IOnConnectedCallBack {
