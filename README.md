@@ -14,9 +14,6 @@
 * eslint
 
 ## Installation
-* in the Backend directory run npm install
-* in Backend/src/app/server/server.ts, please enter your mongoURL here:
-```typescript
-const mongoConnection = new MongoConnection('Mongo URL HERE');
-```
+* in the Backend directory, run npm install
+* in Backend/.txt.env, rename to .env and enter your mongo url string. URL=stringgoeshere
 * run, npm run start, to start server
