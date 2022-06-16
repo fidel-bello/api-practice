@@ -8,7 +8,7 @@
 * moment
 * cors
 * express
-* super
+* supertest
 * jest
 * winston
 * eslint
