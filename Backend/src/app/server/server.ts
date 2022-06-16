@@ -3,8 +3,7 @@ import express, {
   urlencoded, json, Router
 } from 'express';
 import cors from 'cors';
-import MongoConnection from "../api/database/connection";
-import {logger} from "./logger";
+import MongoConnection from '../api/database/connection';
 
 const mongoConnection = new MongoConnection('Enter String Here');
 
@@ -14,7 +13,6 @@ expressApp.use(urlencoded({ extended: true }));
 expressApp.use(json());
 
 export class HTTPServer {
-  
   private readonly _port: number;
 
   private readonly _router: Router;
@@ -36,10 +34,10 @@ export class HTTPServer {
   }
 
   public connection() {
-    mongoConnection.connect(() => {})
+    mongoConnection.connect(() => {});
     const server = this.app.listen(this.port, () => {
       console.log(`Server listening on PORT: ${this.port}`);
-    })
+    });
     process.on('unhandledRejection', (error: Error) => {
       console.error(error.message);
       server.close(() => {
