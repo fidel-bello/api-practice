@@ -35,6 +35,7 @@ export class HTTPServer {
   }
 
   public connection() {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     mongoConnection.connect(() => {});
     const server = this.app.listen(this.port, () => {
       console.log(`Server listening on PORT: ${this.port}`);
