@@ -14,6 +14,8 @@
 * eslint
 * config
 * dotenv
+* mongoose-unique-validator
+
 
 ## Installation
 * in the Backend directory, run npm install
