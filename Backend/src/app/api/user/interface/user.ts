@@ -1,6 +1,8 @@
 import { IModel } from '../../model/mongoModel';
 
-export interface ISample extends IModel {
+export interface IUserModel extends IModel {
+    username: string,
     name: string,
-    age: number
+    age: number,
+    email: string
 }

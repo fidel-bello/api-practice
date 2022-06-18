@@ -1,13 +1,15 @@
 import mongoose, { SchemaDefinition } from 'mongoose';
 import { Model } from '../model/mongoModel';
-import { ISample } from './interface/user';
+import { IUserModel } from './interface/user';
 
 const userDefinition: SchemaDefinition = {
-  name: { type: String, required: true, unique: true },
-  age: { type: Number, required: true }
+  username: { type: String, required: true, unique: true },
+  name: {type: String },
+  age: { type: Number, required: true },
+  password: {type: String, required: true },
 };
 
 const userModel: Model = new Model(userDefinition);
-userModel.model = mongoose.model<ISample>('user', userModel.schema);
+userModel.model = mongoose.model<IUserModel>('user', userModel.schema);
 
 export default userModel;

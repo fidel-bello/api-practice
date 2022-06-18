@@ -2,7 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import { NextFunction, Response, Request } from 'express';
 import userModel from './userModel';
-import { ISample } from './interface/user';
+import { IUserModel } from './interface/user';
 
 export class UserController {
   constructor(init?: Partial<UserController>) {
@@ -11,7 +11,7 @@ export class UserController {
 
   public postUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-      const data = req.body as unknown as ISample;
+      const data = req.body as unknown as IUserModel;
       const result = await userModel.add(data);
       res.status(200).json({
         result
