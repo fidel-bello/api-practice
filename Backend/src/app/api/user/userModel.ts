@@ -4,9 +4,9 @@ import { IUserModel } from './interface/user';
 
 const userDefinition: SchemaDefinition = {
   username: { type: String, required: true, unique: true },
-  name: {type: String },
+  name: { type: String },
   age: { type: Number, required: true },
-  password: {type: String, required: true },
+  password: { type: String, required: true },
 };
 
 const userModel: Model = new Model(userDefinition);

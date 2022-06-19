@@ -4,5 +4,6 @@ export interface IUserModel extends IModel {
     username: string,
     name: string,
     age: number,
-    email: string
+    email: string,
+    password: string
 }
