@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 import request from 'supertest';
 import assert from 'assert';
-import { HTTPServer } from '../../../server/server';
-import routes from '../../routes';
+import { HTTPServer } from '../../server/server';
+import routes from '../../api/routes';
 
 const server = new HTTPServer(8080, routes);
 
