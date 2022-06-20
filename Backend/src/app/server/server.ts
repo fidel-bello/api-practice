@@ -4,6 +4,7 @@ import express, {
   urlencoded, json, Router
 } from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 import config from 'config';
 import MongoConnection from '../api/database/connection';
 
@@ -11,6 +12,7 @@ const mongoConnection = new MongoConnection(config.get('URL'));
 
 export const expressApp = express();
 expressApp.use(cors());
+expressApp.use(cookieParser());
 expressApp.use(urlencoded({ extended: true }));
 expressApp.use(json());
 
@@ -35,7 +37,7 @@ export class HTTPServer {
     return this._port;
   }
 
-  public connection() {
+  public connection(): void {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     mongoConnection.connect(() => {});
     const server = this.app.listen(this.port, () => {

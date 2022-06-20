@@ -8,5 +8,8 @@ require('dotenv').config();
 
 const config = module.exports = {
   URL: process.env.URL,
-  PORT: process.env.PORT
+  PORT: process.env.PORT,
+  SECRET_KEY: process.env.SECRET_KEY,
+  JWT_EXPIRE: process.env.JWT_EXPIRE,
+  ALGORITHM: process.env.ALGORITHM
 }

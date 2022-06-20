@@ -10,7 +10,7 @@ describe('post user', () => {
         .send({
           username: 'fbellos', name: 'Fidel', age: 23, email: 'test@email.com', password: '123456'
         })
-        .expect('Content-Type', 'application/json')
+        .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(200)
         .expect((res) => {
           assert(res.body.hasOwnProperty('status'));

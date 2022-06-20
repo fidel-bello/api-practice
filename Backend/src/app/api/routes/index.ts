@@ -1,5 +1,5 @@
+/* eslint-disable import/no-cycle */
 import express from 'express';
-
 import health from '../HealthCheck/healthRoute';
 import user from '../user/userRoute';
 
