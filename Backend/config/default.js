@@ -7,5 +7,6 @@
 require('dotenv').config();
 
 const config = module.exports = {
-  URL: process.env.URL
+  URL: process.env.URL,
+  PORT: process.env.PORT
 }
