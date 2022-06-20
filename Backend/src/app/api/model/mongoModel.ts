@@ -28,9 +28,9 @@ export class Model {
 
   public model: mongoose.Model<any>;
 
-                  constructor(public definition: SchemaDefinition, public options?: SchemaOptions) {
+  constructor(public definition: SchemaDefinition, public options?: SchemaOptions) {
     this.definition = { ...this.definition, ...baseDefinition };
-                        this.options = this.options ? { ...this.options, ...baseOptions } : baseOptions;
+    this.options = this.options ? { ...this.options, ...baseOptions } : baseOptions;
     this.schema = new Schema(definition, options);
     this.schema.plugin(uniqueV);
   }
@@ -38,6 +38,6 @@ export class Model {
   async add(data: Document): Promise <Document> {
     const modelData = { ...data, createdAt: Date.now() };
     // eslint-disable-next-line no-return-await
-                    return await this.model.create(modelData);
+    return await this.model.create(modelData);
   }
 }
