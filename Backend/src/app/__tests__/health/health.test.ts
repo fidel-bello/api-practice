@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable no-undef */
 import request from 'supertest';
@@ -22,7 +23,7 @@ describe('healthCheck', () => {
       request('http://localhost:8080')
         .get('/v1/healthCheck')
         .expect(200)
-        .expect('Content-Type', 'application/json')
+        .expect('Content-Type', 'application/json; charset=utf-8')
         .expect((res) => {
           assert(res.body.hasOwnProperty('status'));
           assert(res.body.hasOwnProperty('message'));

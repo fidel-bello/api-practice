@@ -25,5 +25,6 @@
     // Resolve Json Module
     "resolveJsonModule": true
   },
-  "exclude": ["config/*", "jest.config.js", "dist/*"]
+  "exclude": ["config/*", "dist/*", "node_modules"],
+  "include": ["./src"]
 }

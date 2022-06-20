@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 /* eslint-disable import/no-extraneous-dependencies */
 import config from 'config';
 import { HTTPServer } from './app/server/server';
