@@ -14,6 +14,9 @@
 * eslint
 * config
 * dotenv
+* cross-env
+* jsonwebtoken
+* cookie-parser
 * mongoose-unique-validator
 
 
