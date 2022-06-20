@@ -41,6 +41,8 @@
   ]
 },
   "scripts": {
+    "prepare": "husky install",
+    "lint-staged-husky": "lint-staged",
     "test": "jest",
     "start": "node --trace-warnings ./dist/index",
     "build": "npm run tsc",
