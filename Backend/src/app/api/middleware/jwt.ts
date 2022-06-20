@@ -4,7 +4,7 @@ import config from 'config';
 import { Response } from 'express';
 import { IUserModel } from '../user/interface/user';
 
-export const sendToken = (user: IUserModel, statusCode: number, res: Response) => {
+export const sendToken = ({ user, statusCode, res }: { user: IUserModel; statusCode: number; res: Response; }) => {
   const token = user.schema.methods.getToken();
   const options = {
     expires: new Date(Date.now() + parseInt(config.get('JWT_EXPIRE'), 10)),

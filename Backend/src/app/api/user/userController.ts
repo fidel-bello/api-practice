@@ -15,7 +15,7 @@ export class UserController {
     try {
       const data = req.body as unknown as IUserModel;
       const result = await userModel.add(data) as IUserModel;
-      jwt.sendToken(result, 200, res);
+      jwt.sendToken({ user: result, statusCode: 200, res });
     } catch (error) {
       const message = `400, token cannot be created: ${error}`;
       next(message);
