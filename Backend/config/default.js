@@ -11,5 +11,6 @@ const config = module.exports = {
   PORT: process.env.PORT,
   SECRET_KEY: process.env.SECRET_KEY,
   JWT_EXPIRE: process.env.JWT_EXPIRE,
-  ALGORITHM: process.env.ALGORITHM
+  ALGORITHM: process.env.ALGORITHM,
+  NODE_ENV: process.env.NODE_ENV
 }

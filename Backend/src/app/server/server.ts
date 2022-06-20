@@ -1,8 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
-import express, {
-  urlencoded, json, Router
-} from 'express';
+import express, { Router } from 'express';
+import { urlencoded, json } from 'body-parser';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import config from 'config';
