@@ -18,7 +18,7 @@ export class UserController {
       jwt.sendToken({ user: result, statusCode: 200, res });
     } catch (error) {
       const message = `400, token cannot be created: ${error}`;
-      next(message);
+      next(JSON.stringify(message));
     }
   };
 }

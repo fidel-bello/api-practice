@@ -8,8 +8,9 @@ import { IUserModel } from './interface/user';
 
 const userDefinition: SchemaDefinition = {
   username: { type: String, required: true, unique: true },
-  name: { type: String },
+  name: { type: String, unique: false },
   age: { type: Number, required: true },
+  email: { type: String, required: true },
   password: { type: String, required: true },
 };
 

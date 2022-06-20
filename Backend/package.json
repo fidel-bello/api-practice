@@ -32,7 +32,7 @@
     "*.{ts}": "npm run lint:fix"
   },
   "scripts": {
-    "test": "jest",
+    "test": "jest --updateSnapshot --detectOpenHandles --coverage --forceExit --verbose",
     "start": "node --trace-warnings ./dist/index",
     "build": "npm run tsc",
     "tsc": "tsc -p tsconfig.json",
