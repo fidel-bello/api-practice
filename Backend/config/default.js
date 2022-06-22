@@ -12,5 +12,6 @@ const config = module.exports = {
   SECRET_KEY: process.env.SECRET_KEY,
   JWT_EXPIRE: process.env.JWT_EXPIRE,
   ALGORITHM: process.env.ALGORITHM,
-  NODE_ENV: process.env.NODE_ENV
+  NODE_ENV: process.env.NODE_ENV,
+  BCRYPT: process.env.NODE_ENV
 }
