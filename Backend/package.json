@@ -38,7 +38,8 @@
     "dev": "cross-env NODE_ENV=DEVELOPMENT&& node --trace-warnings ./dist/index",
     "build": "rm -rf ./dist && tsc",
     "lint": "eslint --max-warnings=0 --ext ts, src",
-    "lint:fix": "eslint --ext ts, src --fix"
+    "lint:fix": "eslint --ext ts, src --fix",
+    "start:dev": "nodemon ./src/index.ts"
   },
   "dependencies": {
     "@types/config": "^0.0.41",
@@ -56,6 +57,7 @@
     "moment": "^2.29.3",
     "mongoose": "^6.3.8",
     "mongoose-unique-validator": "^3.1.0",
+    "nodemon": "^2.0.18",
     "supertest": "^6.2.3",
     "winston": "^3.7.2"
   },
