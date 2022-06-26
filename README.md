@@ -4,6 +4,7 @@
 * This is a repo to practice typescript classes and also REST API 
 
 ## Dependencies
+* nodemon
 * mongoose
 * moment
 * cors
