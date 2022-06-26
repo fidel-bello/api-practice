@@ -17,6 +17,7 @@
 * cross-env
 * jsonwebtoken
 * cookie-parser
+* bcrypt
 * mongoose-unique-validator
 
 
