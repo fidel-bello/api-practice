@@ -39,7 +39,7 @@
     "build": "rm -rf ./dist && tsc",
     "lint": "eslint --max-warnings=0 --ext ts, src",
     "lint:fix": "eslint --ext ts, src --fix",
-    "start:dev": "nodemon ./src/index.ts"
+    "start:dev": "rm -rf ./dist && tsc && nodemon ./src/index.ts"
   },
   "dependencies": {
     "@types/config": "^0.0.41",
