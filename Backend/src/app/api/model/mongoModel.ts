@@ -40,4 +40,10 @@ export class Model {
     // eslint-disable-next-line no-return-await
     return await this.model.create(modelData);
   }
+
+  async details(id: string): Promise<IModel> {
+    const model = await this.model.findById(id) as unknown as IModel;
+    if (!model) throw Error('Id not found');
+    return model;
+  }
 }
