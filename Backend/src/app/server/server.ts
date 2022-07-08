@@ -6,6 +6,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import config from 'config';
 import MongoConnection from '../api/database/connection';
+import { logger } from './logger';
 
 const mongoConnection = new MongoConnection(config.get('URL'));
 
@@ -40,10 +41,16 @@ export class HTTPServer {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     mongoConnection.connect(() => {});
     const server = this.app.listen(this.port, () => {
-      console.log(`Server listening on PORT: ${this.port}`);
+      logger.log({
+        level: 'info',
+        message: `Listening on PORT: ${this.port}`
+      });
     });
     process.on('unhandledRejection', (error: Error) => {
-      console.error(error.message);
+      logger.log({
+        level: 'error',
+        message: error.message
+      });
       server.close(() => {
         process.exit(1);
       });
