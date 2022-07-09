@@ -38,7 +38,7 @@
     "*.{ts}": "npm run lint:fix"
   },
   "scripts": {
-    "test": "cross-env NODE_ENV= jest --updateSnapshot --detectOpenHandles --coverage --forceExit --verbose",
+    "test": "cross-env NODE_ENV= jest --updateSnapshot --detectOpenHandles --forceExit --verbose",
     "start": "node --trace-warnings ./dist/index",
     "dev": "cross-env NODE_ENV=DEVELOPMENT&& node --trace-warnings ./dist/index",
     "build": "rm -rf ./dist && tsc",
@@ -60,6 +60,7 @@
     "mongoose-unique-validator": "^3.1.0",
     "nodemon": "^2.0.18",
     "supertest": "^6.2.3",
+    "unique-username-generator": "^1.1.1",
     "winston": "^3.7.2"
   },
   "optionalDependencies": {
