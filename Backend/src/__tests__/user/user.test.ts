@@ -9,18 +9,19 @@ jest.setTimeout(30000);
 const port = 8080;
 const url = `http://localhost:${port}`;
 const request = supertest(url);
-const email = generateFromEmail('john.doe@email.com', 4);
-const username = generateUsername('-', 3);
+const randomEmail = generateFromEmail('john.doe@email.com', 4);
+const randomUsername = generateUsername('-', 3);
+const randomAge = Math.floor(Math.random() * 40) + 15;
 
 describe('Register user', () => {
   test('should create a new user', async () => {
     const res = await request.post('/v1/register').send({
       testGenerated: true,
-      username: username,
+      username: randomUsername,
       name: 'John Doe',
-      email: email,
+      email: randomEmail,
       password: 'johnDoe123',
-      age: Math.floor(Math.random() * 40) + 15
+      age: randomAge
     });
     const { statusCode, body } = res;
     expect(statusCode).toBe(200);
@@ -33,7 +34,7 @@ describe('login', () => {
   test('should login the user', async () => {
     const res = await request.post('/v1/login').send({
       testGenerated: true,
-      username: username,
+      username: randomUsername,
       password: 'johnDoe123',
     });
     const { statusCode, body } = res;
