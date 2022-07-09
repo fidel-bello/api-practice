@@ -50,8 +50,22 @@ export class UserController {
       if (!passwordMatch) throw new Error('Invalid email or password');
       jwt.sendToken(user, 200, res);
     } catch (error) {
-      const message = `400, user not found: ${error}`;
-      JSON.stringify(message);
+      if (error) throw error;
+    }
+  };
+
+  public logout = async (_req: Request, res: Response):Promise<void> => {
+    try {
+      res.cookie('token', null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+      });
+      res.status(200).json({
+        success: true,
+        message: 'Logged Out'
+      });
+    } catch (error) {
+      if (error) throw error;
     }
   };
 }
