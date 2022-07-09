@@ -19,12 +19,6 @@ const userDefinition: SchemaDefinition = {
 
 const userModel: Model = new Model(userDefinition);
 
-userModel.schema.methods.getToken = function getToken() {
-  return jwt.sign({ id: this._id }, config.get('SECRET_KEY'), {
-    expiresIn: parseInt(config.get('JWT_EXPIRE'), 10), algorithm: config.get('ALGORITHM')
-  });
-};
-
 userModel.schema.pre<IUserModel>('save', function encrypt(next): void {
   const user = this;
   if (!user.isModified('password')) return next();
@@ -37,6 +31,16 @@ userModel.schema.pre<IUserModel>('save', function encrypt(next): void {
     });
   });
 });
+
+userModel.schema.methods.getToken = function getToken(): string {
+  return jwt.sign({ id: this._id }, config.get('SECRET_KEY'), {
+    expiresIn: parseInt(config.get('JWT_EXPIRE'), 10), algorithm: config.get('ALGORITHM')
+  });
+};
+
+userModel.schema.methods.comparePassword = async function comparePassword(inputPassword: string): Promise<boolean> {
+  return bcrypt.compare(inputPassword, this.password);
+};
 
 userModel.model = mongoose.model<IUserModel>('user', userModel.schema);
 

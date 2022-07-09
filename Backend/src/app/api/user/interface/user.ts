@@ -6,4 +6,7 @@ export interface IUserModel extends IModel {
     age: number,
     email: string,
     password: string
+    // eslint-disable-next-line no-unused-vars
+    comparePassword(params: string): string,
+    getToken(): string,
 }
