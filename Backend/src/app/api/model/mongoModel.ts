@@ -4,14 +4,14 @@ import mongoose, { Schema, Document } from 'mongoose';
 import uniqueV from 'mongoose-unique-validator';
 
 export interface IModel extends Document {
-    createdAt? : number
+  createdAt?: number
 }
 
 export type SchemaDefinition = {
-    [path: string]: mongoose.SchemaDefinitionProperty<undefined>
-  } | {
-    [x: string]: mongoose.SchemaDefinitionProperty<any> | undefined
-  } | undefined
+  [path: string]: mongoose.SchemaDefinitionProperty<undefined>
+} | {
+  [x: string]: mongoose.SchemaDefinitionProperty<any> | undefined
+} | undefined
 
 const baseDefinition: SchemaDefinition = {
   createdAt: { type: Number }
@@ -35,7 +35,7 @@ export class Model {
     this.schema.plugin(uniqueV);
   }
 
-  async add(data: Document): Promise <Document> {
+  async add(data: Document): Promise<Document> {
     const modelData = { ...data, createdAt: Date.now() };
     // eslint-disable-next-line no-return-await
     return await this.model.create(modelData);
@@ -44,6 +44,12 @@ export class Model {
   async details(id: string): Promise<IModel> {
     const model = await this.model.findById(id) as unknown as IModel;
     if (!model) throw Error('Id not found');
+    return model;
+  }
+
+  async logInOnly({ params }: { params: string; }): Promise<IModel> {
+    const model = await this.model.findOne({ params }).select('+password');
+    if (!model) throw new Error('username or password is incorrect');
     return model;
   }
 }
