@@ -13,5 +13,6 @@ const config = module.exports = {
   JWT_EXPIRE: process.env.JWT_EXPIRE,
   ALGORITHM: process.env.ALGORITHM,
   NODE_ENV: process.env.NODE_ENV,
-  BCRYPT: process.env.NODE_ENV
+  BCRYPT: process.env.NODE_ENV,
+  COOKIE_EXPIRE: process.env.COOKIE_EXPIRE
 }
