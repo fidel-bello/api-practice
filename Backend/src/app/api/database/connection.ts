@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import mongoose from 'mongoose';
 import { logger } from '../logger/logger';
+import { options } from '../utils/helpers/mongo/mongo';
 
 // use global promise for mongoose and node
 (<any>mongoose).Promise = global.Promise;
@@ -25,15 +26,15 @@ export default class MongoConnection {
     this._isConnectedBefore = value;
   }
 
-  private startConnection = async () => {
+  private startConnection = async (): Promise<void> => {
     logger.log({
       level: 'info',
       message: `Connecting to Mongo at ${this.URL}`
     });
-    await mongoose.connect(this.URL);
+    await mongoose.connect(this.URL, options);
   };
 
-  private _onConnected = () => {
+  private _onConnected = (): void => {
     logger.log({
       level: 'info',
       message: `Connected to MongoDB at ${this.URL}`

@@ -36,7 +36,7 @@ const logTransports = [
   new transports.MongoDB({
     level: 'error',
     db: config.get('URL'),
-    collection: 'errors',
+    collection: 'errors'
   })
 ];
 
