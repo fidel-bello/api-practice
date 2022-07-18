@@ -1,10 +1,13 @@
+/* eslint-disable import/no-cycle */
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable class-methods-use-this */
 import mongoose, { Schema, Document } from 'mongoose';
 import uniqueV from 'mongoose-unique-validator';
+import { IUserModel } from '../user/interface/user';
 
 export interface IModel extends Document {
-  createdAt?: number
+  createdAt?: number,
 }
 
 export type SchemaDefinition = {
@@ -28,6 +31,8 @@ export class Model {
 
   public model: mongoose.Model<any>;
 
+  _id: any;
+
   constructor(public definition: SchemaDefinition, public options?: SchemaOptions) {
     this.definition = { ...this.definition, ...baseDefinition };
     this.options = this.options ? { ...this.options, ...baseOptions } : baseOptions;
@@ -44,6 +49,12 @@ export class Model {
   async details(id: string): Promise<IModel> {
     const model = await this.model.findById(id) as unknown as IModel;
     if (!model) throw Error('Id not found');
+    return model;
+  }
+
+  async findbyUsername(username: string): Promise<IUserModel> {
+    const model = await this.model.findOne({ username }).select('+password');
+    if (!model) throw new Error('User not found');
     return model;
   }
 }

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-shadow */
 /* eslint-disable func-names */
 /* eslint-disable no-return-await */
 /* eslint-disable consistent-return */
@@ -6,10 +9,27 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import mongoose, { SchemaDefinition } from 'mongoose';
 import config from 'config';
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { Model } from '../model/mongoModel';
 import { IUserModel } from './interface/user';
+
+declare module '../model/mongoModel' {
+  interface Model {
+      comparePassword: (enterPassword: string, user: string) => Promise<boolean>
+      getToken(): string;
+  }
+}
+
+Model.prototype.comparePassword = async function (enteredPassword: string, user: string): Promise<boolean> {
+  return await bcrypt.compare(enteredPassword, user);
+};
+
+Model.prototype.getToken = function () {
+  return jwt.sign({ id: this._id }, config.get('SECRET_KEY'), {
+    expiresIn: parseInt(config.get('JWT_EXPIRE'), 10), algorithm: config.get('ALGORITHM')
+  });
+};
 
 const userDefinition: SchemaDefinition = {
   username: { type: String, required: true, unique: true },
@@ -25,16 +45,6 @@ userModel.schema.pre<IUserModel>('save', async function encrypt(next): Promise<v
   if (!this.isModified('password')) next();
   this.password = await bcrypt.hash(this.password, 10);
 });
-
-userModel.schema.methods.comparePassword = async function comparePassword(enteredPassword: string) {
-  return await bcrypt.compare(enteredPassword, this.password);
-};
-
-userModel.schema.methods.getToken = function getToken(): string {
-  return jwt.sign({ id: this._id }, config.get('SECRET_KEY'), {
-    expiresIn: parseInt(config.get('JWT_EXPIRE'), 10), algorithm: config.get('ALGORITHM')
-  });
-};
 
 userModel.model = mongoose.model<IUserModel>('user', userModel.schema);
 
