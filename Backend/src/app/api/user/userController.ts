@@ -46,9 +46,8 @@ export class UserController {
   public logInUser = async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
     const { username, password } = req.body;
     if (!username || !password) throw new Error('please enter email or password');
-    const user = userModel.model.findOne({ username }).select('+password') as unknown as IUserModel;
-    if (!user) throw new Error('User not found');
-    const isMatch = user.comparePassword(password);
+    const user = await userModel.findbyUsername(username);
+    const isMatch = await userModel.comparePassword(password, user.password);
     if (!isMatch) {
       logger.log({
         level: 'error',

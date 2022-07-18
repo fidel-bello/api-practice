@@ -6,10 +6,11 @@
 import config from 'config';
 import { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { IUserModel } from '../../../user/interface/user';
 import userModel from '../../../user/userModel';
 
-export const sendToken = (user: any, statusCode: number, res: Response) => {
-  const token = userModel.schema.methods.getToken();
+export const sendToken = (user: IUserModel, statusCode: number, res: Response) => {
+  const token = userModel.getToken();
   const millisecs = 24 * 60 * 1000;
   const options = {
     expires: new Date(Date.now() + parseInt(config.get('COOKIE_EXPIRE'), 10) + millisecs),
