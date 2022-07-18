@@ -9,17 +9,19 @@ import jwt from 'jsonwebtoken';
 import userModel from '../../../user/userModel';
 
 export const sendToken = (user: any, statusCode: number, res: Response) => {
-  const token = user.getToken();
+  const token = userModel.schema.methods.getToken();
   const millisecs = 24 * 60 * 1000;
   const options = {
-    expires: new Date(Date.now() + parseInt(config.get('COOKIE_EXPIRE'), 10) * millisecs),
+    expires: new Date(Date.now() + parseInt(config.get('COOKIE_EXPIRE'), 10) + millisecs),
     httpOnly: true
   };
   res.status(statusCode).cookie('token', token, options).json({
     success: true,
     message: `Welcome, ${user.username}`,
     token,
-    user
+    username: user.username,
+    age: user.age,
+    email: user.email
   });
 };
 

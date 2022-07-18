@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import mongoose from 'mongoose';
-import { logger } from '../../server/logger';
+import { logger } from '../logger/logger';
 
 // use global promise for mongoose and node
 (<any>mongoose).Promise = global.Promise;
