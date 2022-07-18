@@ -5,6 +5,7 @@ import { urlencoded, json } from 'body-parser';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import config from 'config';
+import errors from '../api/utils/middlewares/errors';
 import MongoConnection from '../api/database/connection';
 import { logger } from '../api/logger/logger';
 
@@ -21,8 +22,11 @@ export class HTTPServer {
 
   private readonly _router: Router;
 
+  private _middlewares = errors;
+
   private useRouter() {
     this.app.use(this._router);
+    this.app.use(this._middlewares);
   }
 
   public app = expressApp;
