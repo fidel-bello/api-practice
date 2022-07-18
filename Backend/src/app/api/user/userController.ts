@@ -61,4 +61,12 @@ export class UserController {
       message: 'Logged Out'
     });
   });
+
+  public AllUsers = catchAsync(async (_req: Request, res:Response): Promise<void> => {
+    const users = await userModel.findAll();
+    res.status(200).json({
+      success: true,
+      users
+    });
+  });
 }
