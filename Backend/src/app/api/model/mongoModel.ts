@@ -52,6 +52,11 @@ export class Model {
     return model;
   }
 
+  async findAll(): Promise<IModel> {
+    const users = await this.model.find()as unknown as IModel;
+    return users;
+  }
+
   async findbyUsername(username: string): Promise<IUserModel> {
     const model = await this.model.findOne({ username }).select('+password');
     if (!model) throw new Error('User not found');
