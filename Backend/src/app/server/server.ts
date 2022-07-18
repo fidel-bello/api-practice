@@ -6,7 +6,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import config from 'config';
 import MongoConnection from '../api/database/connection';
-import { logger } from './logger';
+import { logger } from '../api/logger/logger';
 
 const mongoConnection = new MongoConnection(config.get('URL'));
 

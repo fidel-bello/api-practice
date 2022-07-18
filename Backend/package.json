@@ -61,7 +61,8 @@
     "nodemon": "^2.0.18",
     "supertest": "^6.2.3",
     "unique-username-generator": "^1.1.1",
-    "winston": "^3.7.2"
+    "winston": "^3.7.2",
+    "winston-mongodb": "^5.0.7"
   },
   "optionalDependencies": {
     "config": ">=1.0.0",

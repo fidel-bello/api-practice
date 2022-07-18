@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { IModel } from '../../model/mongoModel';
 
 export interface IUserModel extends IModel {
@@ -7,6 +8,6 @@ export interface IUserModel extends IModel {
     email: string,
     password: string
     // eslint-disable-next-line no-unused-vars
-    comparePassword(params: string): string,
+    comparePassword(params: IUserModel): string,
     getToken(): string,
 }

@@ -46,10 +46,4 @@ export class Model {
     if (!model) throw Error('Id not found');
     return model;
   }
-
-  async logInOnly({ params }: { params: string; }): Promise<IModel> {
-    const model = await this.model.findOne({ params }).select('+password');
-    if (!model) throw new Error('username or password is incorrect');
-    return model;
-  }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-unused-vars */
@@ -6,6 +7,8 @@ import { NextFunction, Response, Request } from 'express';
 import userModel from './userModel';
 import { IUserModel } from './interface/user';
 import * as jwt from '../utils/helpers/auth/jwt';
+import { logger } from '../logger/logger';
+import { sendToken } from '../utils/helpers/auth/jwt';
 
 export class UserController {
   constructor(init?: Partial<UserController>) {
@@ -41,17 +44,19 @@ export class UserController {
   };
 
   public logInUser = async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
-    try {
-      const data = req.body;
-      const { username, password } = data;
-      if (!username || !password) throw new Error('Must include email or password');
-      const user = await userModel.logInOnly(data) as unknown as IUserModel;
-      const passwordMatch = user.comparePassword(password);
-      if (!passwordMatch) throw new Error('Invalid email or password');
-      jwt.sendToken(user, 200, res);
-    } catch (error) {
-      if (error) throw error;
+    const { username, password } = req.body;
+    if (!username || !password) throw new Error('please enter email or password');
+    const user = userModel.model.findOne({ username }).select('+password') as unknown as IUserModel;
+    if (!user) throw new Error('User not found');
+    const isMatch = user.comparePassword(password);
+    if (!isMatch) {
+      logger.log({
+        level: 'error',
+        message: 'Password do not match'
+      });
+      throw new Error('Invalid password');
     }
+    sendToken(user, 200, res);
   };
 
   public logout = async (_req: Request, res: Response):Promise<void> => {
