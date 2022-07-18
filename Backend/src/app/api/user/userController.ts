@@ -9,6 +9,7 @@ import { IUserModel } from './interface/user';
 import { logger } from '../logger/logger';
 import { sendToken } from '../utils/helpers/auth/jwt';
 import catchAsync from '../utils/middlewares/asyncErrors';
+import { ErrorHandler } from '../utils/helpers/error/errorHandling';
 
 export class UserController {
   constructor(init?: Partial<UserController>) {
@@ -45,7 +46,7 @@ export class UserController {
         level: 'error',
         message: 'Password do not match'
       });
-      throw new Error('Invalid password');
+      throw new ErrorHandler('Passwords do not match', 404);
     }
     sendToken(user, 200, res);
   });
