@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.use('/v1', health);
 router.use('/v1', user);
-
+// version 2
+router.use('/v2', user);
 export default router;
