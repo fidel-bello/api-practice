@@ -18,6 +18,7 @@ declare module '../model/mongoModel' {
   interface Model {
       comparePassword: (enterPassword: string, user: string) => Promise<boolean>
       getToken(): string;
+      generateToken: ({ username, id }: IUserModel) => Promise<string>
   }
 }
 
@@ -46,6 +47,6 @@ userModel.schema.pre<IUserModel>('save', async function encrypt(next): Promise<v
   this.password = await bcrypt.hash(this.password, 10);
 });
 
-userModel.model = mongoose.model<IUserModel>('user', userModel.schema);
+userModel.model = mongoose.model<IUserModel>('User', userModel.schema);
 
 export default userModel;

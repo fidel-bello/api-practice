@@ -10,6 +10,7 @@ import { logger } from '../logger/logger';
 import { sendToken } from '../utils/helpers/auth/jwt';
 import catchAsync from '../utils/middlewares/asyncErrors';
 import { ErrorHandler } from '../utils/helpers/error/errorHandling';
+import tokenModel from './token/token';
 
 export class UserController {
   constructor(init?: Partial<UserController>) {
@@ -20,6 +21,22 @@ export class UserController {
     const data = req.body;
     const result = await userModel.add(data) as IUserModel;
     sendToken(result, 200, res);
+  });
+
+  public postUserV2 = catchAsync(async (req: Request, res: Response) => {
+    const data = req.body;
+    const user = await userModel.add(data) as unknown as IUserModel;
+    const token = await tokenModel.generateToken(user);
+    res.status(200).json({
+      success: true,
+      token,
+      user: {
+        username: user.username,
+        name: user.name,
+        age: user.age,
+        email: user.email,
+      }
+    });
   });
 
   public getSingleUser = catchAsync(async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
