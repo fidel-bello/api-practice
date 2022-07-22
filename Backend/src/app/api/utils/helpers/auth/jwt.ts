@@ -8,6 +8,7 @@ import { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { IUserModel } from '../../../user/interface/user';
 import userModel from '../../../user/userModel';
+import catchAsync from '../../middlewares/asyncErrors';
 
 export const sendToken = (user: IUserModel, statusCode: number, res: Response) => {
   const token = userModel.getToken();
@@ -26,14 +27,10 @@ export const sendToken = (user: IUserModel, statusCode: number, res: Response) =
   });
 };
 
-export const isAuth = async (req: any, _res: Response, next: NextFunction): Promise<void> => {
-  try {
-    const { token } = req.cookies;
-    if (!token) throw new Error('Must loggin to access this route');
-    const decoded: any = jwt.verify(token, config.get('SECRET_KEY'));
-    req.user = await userModel.details(decoded.id);
-    next();
-  } catch (error) {
-    if (error) throw error;
-  }
-};
+export const isAuth = catchAsync(async (req: any, _res: Response, next: NextFunction): Promise<void> => {
+  const { token } = req.cookies;
+  if (!token) throw new Error('Must loggin to access this route');
+  const decoded: any = jwt.verify(token, config.get('SECRET_KEY'));
+  req.user = await userModel.details(decoded.id);
+  next();
+});
