@@ -51,3 +51,11 @@ describe('logout', () => {
     expect(body.success).toBe(true);
   });
 });
+
+describe('get all users', () => {
+  test('route should get all the registered users', async () => {
+    const res = await request.get('/v1/users');
+    const { statusCode } = res;
+    expect(statusCode).toBe(200);
+  });
+});
