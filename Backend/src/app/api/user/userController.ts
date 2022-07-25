@@ -68,6 +68,26 @@ export class UserController {
     sendToken(user, 200, res);
   });
 
+  public loginUserV2 = catchAsync(async (req: Request, res: Response): Promise<void> => {
+    const { username, password } = req.body;
+    if (!username || !password) throw new ErrorHandler('Please enter email or password', 404);
+    const user = await userModel.findbyUsername(username);
+    const isMatch = await userModel.comparePassword(password, user.password);
+    if (!isMatch) throw new ErrorHandler('Password or username is incorrect', 404);
+    const token = await tokenModel.generateToken(user);
+    res.status(200).json({
+      success: true,
+      message: `Welcome back ${user.username}`,
+      user: {
+        token,
+        username: user.username,
+        name: user.name,
+        age: user.age,
+        email: user.email,
+      }
+    });
+  });
+
   public logout = catchAsync(async (_req: Request, res: Response):Promise<void> => {
     res.cookie('token', null, {
       expires: new Date(Date.now()),
